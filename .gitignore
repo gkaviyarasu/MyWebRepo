@@ -102,3 +102,16 @@ dist
 
 # TernJS port file
 .tern-port
+
+# CDK Ignore
+*.js
+!jest.config.js
+*.d.ts
+node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+.idea/
+*.iml
