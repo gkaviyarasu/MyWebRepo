@@ -2,10 +2,10 @@
   "compilerOptions": {
     "target": "ES2018",
     "module": "commonjs",
-    "lib": [
-      "es2018"
-    ],
+    "lib": ["es2016", "es2017.object", "es2017.string"],
     "declaration": true,
+    "outDir": "./dist/lib",
+    "declarationDir": "./dist/types",
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -23,8 +23,5 @@
       "./node_modules/@types"
     ]
   },
-  "exclude": [
-    "node_modules",
-    "cdk.out"
-  ]
+  "exclude": ["cdk.out","build","node_modules", "dist"]
 }
