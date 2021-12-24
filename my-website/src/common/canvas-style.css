@@ -1,11 +1,5 @@
 .my-canvas {
     position: fixed;
-    /*width: 100vw;
-    height: 100vh;*/
-    /*top: 50%;*/
-    /*left: 50%;*/
-    /*!* bring your own prefixes *!*/
-    /*transform: translate(-80%, -50%);*/
     z-index: 1;
 }
 
@@ -55,25 +49,33 @@ h1 {
     margin: 10px 0;
 }
 
-.g-anouncement {
-    width: auto;
-    height: auto;
+.welcome-banner {
     position: relative;
-    /*top: 10%;*/
-    /*left: 7vw;*/
+    display: block;
+    justify-content: center;
+    background-color: #FFFFFF;
     font-family: Shalma;
-    /*background-color: #FFFFFF;*/
+    /*font-family: Allura;*/
+    /*font-family: Arial Black, Arial Bold, Gadget, sans-serif;*/
     z-index: 9;
+    /*background-image: linear-gradient(315deg, skyblue 0%, lightpink 74%);*/
+    background-image: url(./final-banner-image.jpeg);
+    background-size: cover;
+    /*color: rgba(255, 255, 255, 1);*/
+    color: #1a1b1c;
+    /*text-shadow: -2px 0 black, 0 4px black, 4px 0 black, 0 -1px black;*/
+    /*color: transparent;*/
+
 }
 
 h2 {
-    font-size: 14vw;
-    padding: 1vw;
-    background-color: #FFFFFF;
-    margin: 0 0 -1vh -1vh;
-    /*margin-top: -1vh;*/
+    /*font-size: clamp(40px, 4vw, 70px);*/
+    font-size: clamp(40px, 12vw, 160px);
+    padding: clamp(16px, 4vw, 20px) 1vw 1vw;
+    margin: 0;
     text-align: center;
-    height: 12vh;
+    font-weight: bolder;
+    height: 8vh;
 }
 
 @media screen and (max-width: 600px) {
@@ -83,14 +85,8 @@ h2 {
     }
 
     h2 {
-        font-size: 18vw;
-        padding: 4vw;
-        margin-bottom: -1vh;
-        text-align: center;
-    }
-
-    .g-anouncement {
+        font-size: 23vw;
+        padding: 1vw;
         height: auto;
     }
-
 }

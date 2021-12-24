@@ -1,4 +1,5 @@
 const AWS = require('aws-sdk');
+global.crypto = require('crypto');
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 const bucketName = process.env.TABLE_NAME;
@@ -11,12 +12,6 @@ exports.handler = async (event, context) => {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*"
     };
-
-    function uuidv4() {
-        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-        );
-    }
 
     try {
         let key = event.httpMethod + ' ' + event.resource;
@@ -74,6 +69,7 @@ exports.handler = async (event, context) => {
                 throw new Error(`Unsupported route: "${event.routeKey}"`);
         }
     } catch (err) {
+        log
         statusCode = 400;
         body = event;
     } finally {

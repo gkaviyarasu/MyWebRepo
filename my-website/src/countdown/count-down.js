@@ -1,5 +1,5 @@
 import * as React from "react";
-import aaudio from "../common/tick.wav";
+import aaudio from "../common/beep-10.mp3";
 
 export class CountDown extends React.Component {
     constructor(props) {
@@ -31,7 +31,7 @@ export class CountDown extends React.Component {
     }
 
     startTimer() {
-        if (this.state.seconds > 0) {
+        if (this.state.seconds > -1) {
             this.timer = setInterval(this.countDown, 1000);
         }
     }
@@ -39,18 +39,19 @@ export class CountDown extends React.Component {
     countDown() {
         // Remove one second, set state so a re-render happens.
         let seconds = (this.state.timestamp - Date.now())/1000;
+        // Check if we're at zero.
+        if (seconds < 0) {
+            clearInterval(this.timer);
+            this.callbackFn();
+            return;
+        }
         this.setState({
             time: this.secondsToTime(seconds),
             seconds: seconds
         });
-        if (seconds < 30) {
+        if (seconds < 11 && !this.soundStarted) {
             this.audio.play();
-        }
-
-        // Check if we're at zero.
-        if (seconds <= 0) {
-            clearInterval(this.timer);
-            this.callbackFn();
+            this.soundStarted=true;
         }
     }
 

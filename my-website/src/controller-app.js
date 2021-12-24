@@ -24,7 +24,7 @@ class ControllerApp extends React.Component {
                 baby: babyGender,
                 animationManager: undefined,
                 countedDown: false,
-                survey:false
+                survey: false
             }
         } else if (this.appId) {
             this.state = {
@@ -33,7 +33,7 @@ class ControllerApp extends React.Component {
                 baby: babyGender,
                 animationManager: undefined,
                 countedDown: false,
-                survey:false
+                survey: false
             }
         } else {
             this.state = {
@@ -42,7 +42,7 @@ class ControllerApp extends React.Component {
                 animationManager: undefined,
                 countedDown: false,
                 isLoaded: true,
-                survey:false
+                survey: false
             };
         }
         this.animationManager = undefined;
@@ -51,13 +51,13 @@ class ControllerApp extends React.Component {
     componentDidMount() {
         if (this.appId) {
             this.updateStateFromBackend();
-        } else {
-            let canvas = document.getElementById("canvas");
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            this.animationManager = new AnimationManager(canvas, 30, ['lightpink', 'skyblue'])
-            this.setState({animationManager: this.animationManager})
         }
+        let canvas = document.getElementById("canvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        this.animationManager = new AnimationManager(canvas, 30, ['lightpink', 'skyblue'])
+        this.setState({animationManager: this.animationManager})
+
     }
 
     updateStateFromBackend() {
@@ -65,23 +65,19 @@ class ControllerApp extends React.Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                    let canvas = document.getElementById("canvas");
-                    canvas.width = window.innerWidth;
-                    canvas.height = window.innerHeight;
-                    this.animationManager = new AnimationManager(canvas, 30, ['lightpink', 'skyblue'])
                     this.setState({
                         isLoaded: true,
                         timestamp: result.Item.dTimestamp,
                         baby: result.Item.gender,
-                        animationManager: this.animationManager,
                         countedDown: result.Item.dTimestamp < Date.now(),
                     });
-                    if(this.countDown) {
-                        this.countDown.setState({timestamp:result.Item.dTimestamp});
+                    if (this.countDown) {
+                        this.countDown.setState({timestamp: result.Item.dTimestamp});
                     }
-                    if(!result.Item.gender) {
-                        setTimeout(this.updateStateFromBackend.bind(this), 600000)
-                    }
+                    if (this.state)
+                        if (!result.Item.gender) {
+                            setTimeout(this.updateStateFromBackend.bind(this), 600000)
+                        }
                 },
                 // Note: it's important to handle errors here
                 // instead of a catch() block so that we don't swallow
@@ -100,7 +96,8 @@ class ControllerApp extends React.Component {
     }
 
     surveyCallbackHandler() {
-        this.setState({survey:true, countedDown: (this.state.timestamp - Date.now())< 0 });
+
+        this.setState({survey: true, countedDown: (this.state.timestamp - Date.now()) < 0});
     }
 
     render() {
@@ -110,9 +107,9 @@ class ControllerApp extends React.Component {
                                  timestamp={this.state.timestamp}
                                  ref={ref => (this.countDown = ref)}
             />;
-            /*if (!this.state.survey) {
-                content = <Survey callback={this.surveyCallbackHandler.bind(this)}/>;
-            }*/
+            if (!this.state.survey) {
+                content = <Survey callback={this.surveyCallbackHandler.bind(this)} appId={this.appId}/>;
+            }
             if (this.state.countedDown) {
                 if (this.state.baby == 'boy') {
                     content = <BoyBaby animationManager={this.state.animationManager}/>;
@@ -130,7 +127,7 @@ class ControllerApp extends React.Component {
         return (
             <div className="App">
                 <canvas id='canvas' className='my-canvas'/>
-                <div className='g-anouncement'>
+                <div className='welcome-banner'>
                     <h2>Welcome to Gokul & Saranya's Gender reveal</h2>
                 </div>
                 {content}
