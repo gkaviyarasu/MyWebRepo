@@ -1,37 +1,96 @@
 .my-canvas {
-    /*position: absolute;*/
+    position: fixed;
     /*width: 100vw;
     height: 100vh;*/
     /*top: 50%;*/
     /*left: 50%;*/
     /*!* bring your own prefixes *!*/
     /*transform: translate(-80%, -50%);*/
-    z-index: 0;
+    z-index: 1;
 }
+
 .my-video {
-    width:45%;
-    height: 45%;
+    width: 80vw;
+    height: 40%;
     position: absolute;
     top: 27%;
-    left: 27%;
-    margin-top: -50px;
-    margin-left: -50px;
+    left: 10vw;
+}
+
+.my-text-div {
+    width: 78vw;
+    height: auto;
+    position: absolute;
+    top: 30%;
+    left: 12vw;
+    background-color: #FFFFFF;
+    padding: 1vw;
+    z-index: 10;
 }
 
 .my-timer {
     font-weight: bold;
-
     display: block;
-    padding: 15px;
-    width: 600px;
+    padding: 1vw;
+    alignment: center;
+    width: 80%;
     text-align: center;
-    position: absolute;
-    top: 45%;
-    left: 35%;
-    margin-top: -50px;
-    margin-left: -50px;
-    font-size: 100px;
-    background-color: #f907fc;
+    position: fixed;
+    top: 32%;
+    left: 10%;
+    font-size: 15vw;
     background-image: linear-gradient(315deg, #f907fc 0%, #05d6d9 74%);
+    z-index: 10;
+}
+
+h1 {
+    background-image: url(https://media.giphy.com/media/26BROrSHlmyzzHf3i/giphy.gif);
+    background-size: cover;
+    color: transparent;
+    -moz-background-clip: text;
+    -webkit-background-clip: text;
+    text-transform: uppercase;
+    font-size: 15vw;
+    line-height: .75;
+    margin: 10px 0;
+}
+
+.g-anouncement {
+    width: auto;
+    height: auto;
+    position: relative;
+    /*top: 10%;*/
+    /*left: 7vw;*/
+    font-family: Shalma;
+    /*background-color: #FFFFFF;*/
+    z-index: 9;
+}
+
+h2 {
+    font-size: 14vw;
+    padding: 1vw;
+    background-color: #FFFFFF;
+    margin: 0 0 -1vh -1vh;
+    /*margin-top: -1vh;*/
+    text-align: center;
+    height: 12vh;
+}
+
+@media screen and (max-width: 600px) {
+    .my-video {
+        width: 100vw;
+        left: 10vw;
+    }
+
+    h2 {
+        font-size: 18vw;
+        padding: 4vw;
+        margin-bottom: -1vh;
+        text-align: center;
+    }
+
+    .g-anouncement {
+        height: auto;
+    }
 
 }

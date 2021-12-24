@@ -1,6 +1,5 @@
 import '../common/balloon'
 import '../common/canvas-style.css'
-import video from '../common/its-a-girl.webm'
 import React from "react";
 
 export class GirlBaby extends React.Component {
@@ -16,10 +15,14 @@ export class GirlBaby extends React.Component {
 
     render() {
         return (
-            <video autoPlay loop className='my-video'>
-                <source src={video} type="video/webm"/>
+            /*<video autoPlay loop playsInline className='my-video'>
+                <source src={webmVideo} type="video/webm"/>
+                <source src={mp4Video} type="video/mp4"/>
                 Your browser does not support HTML video.
-            </video>
+            </video>*/
+            <div className='my-text-div'>
+                <h1>Its A GIRL!</h1>
+            </div>
         );
     }
 }

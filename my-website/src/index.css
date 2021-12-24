@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: "Shalma";
+  src: local("Shalma"),
+  url("./common/Shalma-Rp0Pe.otf") format("truetype");
+  font-weight: bold;
+}

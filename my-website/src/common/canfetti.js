@@ -44,7 +44,6 @@ function Canfetti(canvas) {
         streamingConfetti = true;
     }
     function runAnimationInner() {
-        //context2d.clearRect(0, 0, window.innerWidth, window.innerHeight);
         if (particles.length === 0){}
         else {
             updateParticles();

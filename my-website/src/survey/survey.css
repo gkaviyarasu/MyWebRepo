@@ -1,0 +1,56 @@
+form {
+    margin-left: 8px;
+    width: 90vw;
+    position: relative;
+    /*background-color: #FFFFFF;*/
+    z-index: 11;
+}
+
+form div {
+    width: inherit;
+    margin-bottom: 1rem;
+}
+
+legend, label {
+    display: block;
+    font-family: "Times New Roman";
+    font-weight: bold;
+    font-size: 5vw;
+}
+
+input,
+select,
+textarea {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    width: inherit;
+    height: 2rem;
+    border: .5;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #F0F0F0;
+}
+
+/*input[type="submit"] {
+    height: 2.5rem;
+    font-size: 1rem;
+    color: #fff;
+    background: #0971f1;
+    cursor: pointer;
+}*/
+
+textarea {
+    height: 5rem;
+}
+
+input[type="submit"] {
+    width: inherit;
+    height: 2.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #fff;
+    background: #0971f1;
+    cursor: pointer;
+}
+

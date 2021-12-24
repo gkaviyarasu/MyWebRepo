@@ -5,6 +5,8 @@ import BoyBaby from "./boy-baby/App";
 import GirlBaby from "./girl-baby/App";
 import CountDown from "./countdown/count-down";
 import Loader from "react-loader-spinner";
+import {Survey} from "./survey/survey";
+
 
 class ControllerApp extends React.Component {
     constructor(props) {
@@ -16,84 +18,101 @@ class ControllerApp extends React.Component {
         let seconds = urlParams ? urlParams.get('s') : undefined;
         if (babyGender && seconds) {
             this.state = {
-                seconds: seconds,
+                timestamp: Date.now() + seconds * 1000,
                 isLoaded: true,
                 Item: undefined,
                 baby: babyGender,
                 animationManager: undefined,
-                countedDown: false
+                countedDown: false,
+                survey:false
             }
         } else if (this.appId) {
             this.state = {
-                seconds: undefined,
+                timestamp: undefined,
                 isLoaded: false,
                 baby: babyGender,
                 animationManager: undefined,
-                countedDown: false
+                countedDown: false,
+                survey:false
             }
         } else {
             this.state = {
-                seconds: 15,
+                timestamp: Date.now() + 15 * 1000,
                 baby: 'girl',
                 animationManager: undefined,
                 countedDown: false,
-                isLoaded: true
+                isLoaded: true,
+                survey:false
             };
         }
         this.animationManager = undefined;
     }
 
-    //const { id } = useParams();
-
     componentDidMount() {
         if (this.appId) {
-            fetch("https://cidxc1n129.execute-api.us-east-1.amazonaws.com/prod/" + this.appId)
-                .then(res => res.json())
-                .then(
-                    (result) => {
-                        let canvas = document.getElementById("canvas");
-                        canvas.width = window.innerWidth - 20;
-                        canvas.height = window.innerHeight - 25;
-                        this.animationManager = new AnimationManager(canvas, 30, ['lightpink', 'skyblue'])
-                        //this.animationManager.renderBalloons();
-                        //this.animationManager.setRedrawTimeInterval(10);
-                        let sec = (result.Item.dTimestamp - Date.now())/1000;
-                        console.log("remaining seconds:  " + sec)
-                        this.setState({
-                            isLoaded: true,
-                            seconds: sec,
-                            baby: result.Item.gender,
-                            animationManager: this.animationManager,
-                            countedDown: sec < 0,
-                        });
-                    },
-                    // Note: it's important to handle errors here
-                    // instead of a catch() block so that we don't swallow
-                    // exceptions from actual bugs in components.
-                    (error) => {
-                        this.setState({
-                            isLoaded: true,
-                            error
-                        });
-                    }
-                )
+            this.updateStateFromBackend();
         } else {
             let canvas = document.getElementById("canvas");
-            canvas.width = window.innerWidth - 20;
-            canvas.height = window.innerHeight - 25;
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
             this.animationManager = new AnimationManager(canvas, 30, ['lightpink', 'skyblue'])
             this.setState({animationManager: this.animationManager})
         }
     }
 
-    callbackHandler() {
-        this.setState({countedDown: true, seconds:0})
+    updateStateFromBackend() {
+        fetch("https://cidxc1n129.execute-api.us-east-1.amazonaws.com/prod/" + this.appId)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    let canvas = document.getElementById("canvas");
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                    this.animationManager = new AnimationManager(canvas, 30, ['lightpink', 'skyblue'])
+                    this.setState({
+                        isLoaded: true,
+                        timestamp: result.Item.dTimestamp,
+                        baby: result.Item.gender,
+                        animationManager: this.animationManager,
+                        countedDown: result.Item.dTimestamp < Date.now(),
+                    });
+                    if(this.countDown) {
+                        this.countDown.setState({timestamp:result.Item.dTimestamp});
+                    }
+                    if(!result.Item.gender) {
+                        setTimeout(this.updateStateFromBackend.bind(this), 600000)
+                    }
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
+    }
+
+    countDownCallbackHandler() {
+        this.setState({countedDown: true})
+    }
+
+    surveyCallbackHandler() {
+        this.setState({survey:true, countedDown: (this.state.timestamp - Date.now())< 0 });
     }
 
     render() {
         let content = <Loader type="Puff" color="#00BFFF" height={100} width={100} timeout={3000}/>;
         if (this.state.isLoaded) {
-            content = <CountDown callback={this.callbackHandler.bind(this)} seconds={this.state.seconds}/>;
+            content = <CountDown callback={this.countDownCallbackHandler.bind(this)}
+                                 timestamp={this.state.timestamp}
+                                 ref={ref => (this.countDown = ref)}
+            />;
+            /*if (!this.state.survey) {
+                content = <Survey callback={this.surveyCallbackHandler.bind(this)}/>;
+            }*/
             if (this.state.countedDown) {
                 if (this.state.baby == 'boy') {
                     content = <BoyBaby animationManager={this.state.animationManager}/>;
@@ -102,7 +121,7 @@ class ControllerApp extends React.Component {
                     content = <GirlBaby animationManager={this.state.animationManager}/>;
                 }
             }
-            if(!this.animationRendered && this.animationManager) {
+            if (!this.animationRendered && this.animationManager) {
                 this.animationManager.renderBalloons();
                 this.animationManager.setRedrawTimeInterval(10);
                 this.animationRendered = true;
@@ -111,6 +130,9 @@ class ControllerApp extends React.Component {
         return (
             <div className="App">
                 <canvas id='canvas' className='my-canvas'/>
+                <div className='g-anouncement'>
+                    <h2>Welcome to Gokul & Saranya's Gender reveal</h2>
+                </div>
                 {content}
             </div>
         );

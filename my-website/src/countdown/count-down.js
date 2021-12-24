@@ -4,7 +4,9 @@ import aaudio from "../common/tick.wav";
 export class CountDown extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {time: {}, seconds: props.seconds};
+        const timestamp = props.timestamp;
+        let sec = (timestamp - Date.now()) / 1000;
+        this.state = {time: {}, seconds: sec, timestamp: props.timestamp};
         this.callbackFn = props.callback;
         this.startTimer = this.startTimer.bind(this);
         this.countDown = this.countDown.bind(this);
@@ -36,7 +38,7 @@ export class CountDown extends React.Component {
 
     countDown() {
         // Remove one second, set state so a re-render happens.
-        let seconds = this.state.seconds - 1;
+        let seconds = (this.state.timestamp - Date.now())/1000;
         this.setState({
             time: this.secondsToTime(seconds),
             seconds: seconds
