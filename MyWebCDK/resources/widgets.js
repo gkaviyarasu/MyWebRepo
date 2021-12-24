@@ -56,7 +56,7 @@ exports.handler = async (event, context) => {
                     .put({
                         TableName: surveyTable,
                         Item: {
-                            appId: event.pathParameters.id,
+                            appId: event.pathParameters.appId,
                             messageId: crypto.randomUUID(),
                             timestamp: Date.now(),
                             gender: messageJSON.gender,
