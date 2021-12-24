@@ -12,7 +12,7 @@
 }
 
 .my-text-div {
-    width: 78vw;
+    width: auto;
     height: auto;
     position: absolute;
     top: 30%;
@@ -38,6 +38,7 @@
 }
 
 h1 {
+    background-color: #FFFFFF;
     background-image: url(https://media.giphy.com/media/26BROrSHlmyzzHf3i/giphy.gif);
     background-size: cover;
     color: transparent;

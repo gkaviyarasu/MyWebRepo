@@ -18,15 +18,15 @@ export class WidgetService extends core.Construct {
             timeToLiveAttribute: 'ttl'
         });
 
-        const surveyTable = new Table(this, "GenderRevealSurveyTable", {
-            tableName: 'GenderRevealSurveyTable',
+        const surveyTable = new Table(this, "GenderRevealSurveyTable1", {
+            tableName: 'GenderRevealSurveyTable1',
             partitionKey: {
                 name: 'appId',
                 type: AttributeType.STRING,
             },
             sortKey: {
                 name: "messageId",
-                type: AttributeType.STRING
+                type: AttributeType.NUMBER
             },
             billingMode: BillingMode.PAY_PER_REQUEST,
             timeToLiveAttribute: 'ttl'
@@ -86,5 +86,6 @@ export class WidgetService extends core.Construct {
 
         const messageWidget = widget.addResource("message");
         messageWidget.addMethod("PUT", getWidgetIntegration)
+        messageWidget.addMethod("GET", getWidgetIntegration)
     }
 }

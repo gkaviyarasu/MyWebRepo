@@ -52,8 +52,7 @@ exports.handler = async (event, context) => {
                         TableName: surveyTable,
                         Item: {
                             appId: event.pathParameters.appId,
-                            messageId: crypto.randomUUID(),
-                            timestamp: Date.now(),
+                            messageId: Date.now(),
                             gender: messageJSON.gender,
                             name: messageJSON.name,
                             message: messageJSON.message,
@@ -65,11 +64,29 @@ exports.handler = async (event, context) => {
                     .promise();
                 body = `Put item ${messageJSON.appId}`;
                 break;
+            case "GET /{appId}/message":
+                let appId = event.pathParameters.appId;
+                let lastMessageId = event.queryStringParameters.messageId;
+                if(Array.isArray(lastMessageId)) {
+                    lastMessageId = lastMessageId.pop();
+                }
+                if (!(typeof lastMessageId === 'number')) {
+                    lastMessageId = 0;
+                }
+                body = await docClient
+                    .query({
+                        TableName: surveyTable,
+                        KeyConditionExpression: "appId = :appId and messageId > :messageId",
+                        ExpressionAttributeValues: {
+                            ":appId": appId,
+                            ":messageId": lastMessageId
+                        }
+                    }).promise();
+                break;
             default:
                 throw new Error(`Unsupported route: "${event.routeKey}"`);
         }
     } catch (err) {
-        log
         statusCode = 400;
         body = event;
     } finally {
