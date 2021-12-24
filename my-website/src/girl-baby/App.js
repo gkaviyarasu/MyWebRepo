@@ -20,8 +20,11 @@ export class GirlBaby extends React.Component {
                 <source src={mp4Video} type="video/mp4"/>
                 Your browser does not support HTML video.
             </video>*/
-            <div className='my-text-div'>
-                <h1>Its A GIRL!</h1>
+
+            <div className='parent-container'>
+                <div className='my-text-div'>
+                    <h1>Its A GIRL!</h1>
+                </div>
             </div>
         );
     }

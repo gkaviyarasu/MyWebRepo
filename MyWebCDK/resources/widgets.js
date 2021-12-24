@@ -67,11 +67,12 @@ exports.handler = async (event, context) => {
             case "GET /{appId}/message":
                 let appId = event.pathParameters.appId;
                 let lastMessageId = event.queryStringParameters.messageId;
-                if(Array.isArray(lastMessageId)) {
+                if (Array.isArray(lastMessageId)) {
                     lastMessageId = lastMessageId.pop();
                 }
-                if (!(typeof lastMessageId === 'number')) {
-                    lastMessageId = 0;
+                lastMessageId = parseInt(lastMessageId);
+                if (lastMessageId < 1640031543000) {
+                    lastMessageId = 1640031543000;
                 }
                 body = await docClient
                     .query({

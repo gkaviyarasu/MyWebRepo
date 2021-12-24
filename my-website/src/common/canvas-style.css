@@ -3,41 +3,67 @@
     z-index: 1;
 }
 
-.my-video {
+/*.my-video {
     width: 80vw;
     height: 40%;
     position: absolute;
     top: 27%;
     left: 10vw;
+}*/
+
+.vd-parent {
+    bottom: 10vh;
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: auto;
+    alignment: center;
+    align-content: center;
+    text-align: center;
+    z-index: 10;
 }
 
-.my-text-div {
-    width: auto;
-    height: auto;
-    position: absolute;
-    top: 30%;
-    left: 12vw;
-    background-color: #FFFFFF;
-    padding: 1vw;
+.yt-video-under-banner {
+    display: inline;
+    width: min(44vw, 1000px);
+    height:min(25vw, 600px);
+}
+
+.parent-container {
+    margin-top: 10vh;
+    padding: 0;
+    display: block;
+    alignment: center;
+    align-content: center;
+    position: relative;
+    text-align: center;
     z-index: 10;
 }
 
 .my-timer {
+    display: inline;
     font-weight: bold;
-    display: block;
-    padding: 1vw;
-    alignment: center;
-    width: 80%;
-    text-align: center;
-    position: fixed;
-    top: 32%;
-    left: 10%;
-    font-size: 15vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    font-size: min(12vw, 200px);
+
     background-image: linear-gradient(315deg, #f907fc 0%, #05d6d9 74%);
+}
+.my-text-div {
+    width: 65vw;
+    height: auto;
+    display: block;
+    text-align: center;
+    margin-left: 17vw;
+    /*position: relative;*/
+    /*top: 30%;*/
+    /*left: 15vw;*/
+    background-color: #FFFFFF;
+    padding: 1vw;
     z-index: 10;
 }
-
 h1 {
+    display: inline;
     background-color: #FFFFFF;
     background-image: url(https://media.giphy.com/media/26BROrSHlmyzzHf3i/giphy.gif);
     background-size: cover;
@@ -45,7 +71,7 @@ h1 {
     -moz-background-clip: text;
     -webkit-background-clip: text;
     text-transform: uppercase;
-    font-size: 15vw;
+    font-size: min(13vw, 300px);
     line-height: .75;
     margin: 10px 0;
 }
@@ -79,10 +105,19 @@ h2 {
     height: 8vh;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 769px) {
     .my-video {
         width: 100vw;
         left: 10vw;
+    }
+
+    .yt-video-under-banner {
+        display: inline;
+        width: 95vw;
+        height:66vw;
+    }
+    .vd-parent {
+        bottom: 3vh;
     }
 
     h2 {

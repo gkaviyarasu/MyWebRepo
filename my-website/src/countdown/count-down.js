@@ -38,7 +38,7 @@ export class CountDown extends React.Component {
 
     countDown() {
         // Remove one second, set state so a re-render happens.
-        let seconds = (this.state.timestamp - Date.now())/1000;
+        let seconds = (this.state.timestamp - Date.now()) / 1000;
         // Check if we're at zero.
         if (seconds < 0) {
             clearInterval(this.timer);
@@ -51,7 +51,7 @@ export class CountDown extends React.Component {
         });
         if (seconds < 11 && !this.soundStarted) {
             this.audio.play();
-            this.soundStarted=true;
+            this.soundStarted = true;
         }
     }
 
@@ -61,7 +61,11 @@ export class CountDown extends React.Component {
     }
 
     render() {
-        return (<div className="my-timer">{this.state.time.h} : {this.state.time.m} : {this.state.time.s}</div>);
+        return (
+            <div className='parent-container'>
+                <span className="my-timer">{this.state.time.h} : {this.state.time.m} : {this.state.time.s}</span>
+            </div>
+        );
     }
 }
 

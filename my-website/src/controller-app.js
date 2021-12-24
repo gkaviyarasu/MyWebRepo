@@ -102,6 +102,17 @@ class ControllerApp extends React.Component {
 
     render() {
         let content = <Loader type="Puff" color="#00BFFF" height={100} width={100} timeout={3000}/>;
+        let vid = <div className='vd-parent'>
+            <iframe className='yt-video-under-banner'
+                    src="https://www.youtube.com/embed/mYLF82Uqj1c?autoplay=1&showinfo=0&modestbranding=1"
+                    title="YouTube video player" frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen></iframe>
+        </div>
+        let chatbot = <div></div>;
+        if(window.innerWidth < 1200) {
+            chatbot="";
+        }
         if (this.state.isLoaded) {
             content = <CountDown callback={this.countDownCallbackHandler.bind(this)}
                                  timestamp={this.state.timestamp}
@@ -109,6 +120,7 @@ class ControllerApp extends React.Component {
             />;
             if (!this.state.survey) {
                 content = <Survey callback={this.surveyCallbackHandler.bind(this)} appId={this.appId}/>;
+                vid = <div/>
             }
             if (this.state.countedDown) {
                 if (this.state.baby == 'boy') {
@@ -123,6 +135,8 @@ class ControllerApp extends React.Component {
                 this.animationManager.setRedrawTimeInterval(10);
                 this.animationRendered = true;
             }
+        } else {
+            vid = "";
         }
         return (
             <div className="App">
@@ -130,7 +144,11 @@ class ControllerApp extends React.Component {
                 <div className='welcome-banner'>
                     <h2>Welcome to Gokul & Saranya's Gender reveal</h2>
                 </div>
-                {content}
+                <div>
+                    {content}
+                </div>
+                {vid}
+                {chatbot}
             </div>
         );
     }
