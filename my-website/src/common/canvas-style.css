@@ -12,7 +12,7 @@
 }*/
 
 .vd-parent {
-    bottom: 10vh;
+    bottom: 3vh;
     position: absolute;
     display: block;
     width: 100%;
@@ -50,7 +50,7 @@
     background-image: linear-gradient(315deg, #f907fc 0%, #05d6d9 74%);
 }
 .my-text-div {
-    width: 65vw;
+    width: 67vw;
     height: auto;
     display: block;
     text-align: center;
